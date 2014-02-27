@@ -1,0 +1,17 @@
+<html ng-app>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
+    <script type="text/javascript" src="../js/controllers/customerController.js"></script>
+</head>
+<body ng-controller="CustomerDetailsController">
+    <h1>Customer Details!</h1>
+    <table>
+      <tr ng-model="customer">
+          <td>{{customer.customerId}}</td>
+          <td>{{customer.firstName}}</td>
+          <td>{{customer.lastName}}</td>
+          <td>{{customer.billingAddress}}</td>
+      </tr>
+    </table>
+</body>
+</html>

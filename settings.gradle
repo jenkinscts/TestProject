@@ -1,0 +1,1 @@
+include "modules:models","modules:interfaces","modules:customer-service","modules:billing-service","modules:rest-service","application:testWebApplication","itest"

@@ -1,0 +1,25 @@
+
+
+dependencies {
+    compile project(':modules:models')
+    compile project(':modules:interfaces')
+    compile project(':modules:billing-service')
+    compile project(':modules:customer-service')
+
+    compile libraries.'jersey-container'
+    compile libraries.'jersey-media'
+    compile libraries.'javax.ws.rs'
+    compile libraries.'spring-beans'
+    compile libraries.'spring-context'
+    compile libraries.'log4j'
+
+    testCompile libraries.'junit'
+    testCompile libraries.'jersey-test'
+    testCompile libraries.'spring-context'
+    testCompile libraries.'jersey-spring3'
+    testCompile libraries.'servlet-api'
+    testCompile libraries.'mockito-api'
+    testCompile libraries.'mockito-module'
+
+}
+

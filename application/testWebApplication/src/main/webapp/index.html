@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <title>O2 Telecom</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
+    <script type="text/javascript" src="js/controllers/customerController.js"></script>
+    <script type="text/javascript" src="js/controllers/billingController.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/first.css">
+</head>
+<body>
+<div id="main">
+    <!-- The navigation menu will get the value of the "active" variable as a class.
+         The $event.preventDefault() stops the page from jumping when a link is clicked. -->
+
+    <nav class="{{active}}" ng-click="$event.preventDefault()">
+
+        <!-- When a link in the menu is clicked, we set the active variable -->
+
+        <a href="#" class="customerDetails" ng-click="active='customerDetails'">Customer Details</a>
+        <a href="#" class="billDetails" ng-click="active='billDetails'">Bill Details</a>
+    </nav>
+
+    <p ng-hide="active">Please click a menu item</p>
+    <div class='content' ng-show=" active == 'customerDetails' ">
+        <div ng-controller="AllCustomerDetailsController">
+            <h1>Customer Details</h1>
+            <table>
+                <tr>
+                    <th>CustomerId</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Billing Address</th>
+                </tr>
+                <tr ng-repeat="customer in customers">
+                    <td>{{customer.customerId}}</td>
+                    <td>{{customer.firstName}}</td>
+                    <td>{{customer.lastName}}</td>
+                    <td>{{customer.billingAddress}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class='content' ng-show=" active == 'billDetails' ">
+        <div ng-controller="AllBillingDetailsController">
+            <h1>Billing Details</h1>
+            <table>
+                <tr>
+                    <th>CustomerId</th>
+                    <th>SMS</th>
+                    <th>Balance</th>
+                    <th>Calls</th>
+                </tr>
+                <tr ng-repeat="bill in bills">
+                    <td>{{bill.customerId}}</td>
+                    <td>{{bill.sms}}</td>
+                    <td>{{bill.balance}}</td>
+                    <td>{{bill.calls}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

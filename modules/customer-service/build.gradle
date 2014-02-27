@@ -1,0 +1,7 @@
+
+dependencies {
+    compile project(':modules:models')
+    compile project(':modules:interfaces')
+    testCompile libraries.'junit'
+}
+
