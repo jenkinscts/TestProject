@@ -1,5 +1,8 @@
 package com.cts.o2.customer;
 
+import com.cts.o2.dao.CustomerRepository;
+import com.cts.o2.domain.base.CustomerEntity;
+
 import java.util.*;
 
 /**
@@ -7,44 +10,61 @@ import java.util.*;
  */
 public class CustomerServiceImpl implements CustomerService {
 
-    private static final TreeMap<Integer,Customer> customerMap = new TreeMap<Integer, Customer>();
-
-    static {
-        Customer c1 = new Customer();
-        c1.setCustomerId(1);
-        c1.setFirstName("Sankalp");
-        c1.setLastName("Kale");
-        c1.setBillingAddress("Magarpatta City Pune");
-
-        Customer c2 = new Customer();
-        c2.setCustomerId(2);
-        c2.setFirstName("Nihar");
-        c2.setLastName("Patil");
-        c2.setBillingAddress("PipleSaudagar  Pune");
-
-        Customer c3 = new Customer();
-        c3.setCustomerId(3);
-        c3.setFirstName("Parag");
-        c3.setLastName("Patil");
-        c3.setBillingAddress("Magarpatta City Pune");
-
-        customerMap.put(1,c1);
-        customerMap.put(2,c2);
-        customerMap.put(3,c3);
+    private CustomerRepository customerRepository;
 
 
+    public CustomerRepository getCustomerRepository() {
+        return customerRepository;
     }
 
+    public void setCustomerRepository(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
     @Override
     public Customer getCustomerDetails(int customerId) {
-        return customerMap.get(customerId);
+       CustomerEntity customerEntity =  getCustomerRepository().getCustomer(customerId);
+        return getCustomerFromEntity(customerEntity);
+
     }
 
 
     @Override
     public List<Customer> getAllCustomer() {
-        Collection<Customer> customerCollection = customerMap.values();
-        return  new ArrayList<Customer>(customerCollection);
+        List<CustomerEntity> customerEntityList = getCustomerRepository().getAllCustomer();
+        List<Customer> customers = new ArrayList<Customer>();
+
+        for(CustomerEntity customerEntity: customerEntityList){
+            Customer customer = getCustomerFromEntity(customerEntity);
+            customers.add(customer);
+        }
+        return customers;
+    }
+
+    @Override
+    public void addCustomer(Customer customer) {
+        getCustomerRepository().saveCustomer(getCustomerEntityFromCustom(customer));
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        getCustomerRepository().updateCustomer(customer.getCustomerId(),customer.getFirstName());
+    }
+
+    private CustomerEntity getCustomerEntityFromCustom(Customer customer){
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setCustomerId(customer.getCustomerId());
+        customerEntity.setFirstName(customer.getFirstName());
+        customerEntity.setLastName(customer.getLastName());
+        return customerEntity;
+    }
+
+    private Customer getCustomerFromEntity(CustomerEntity customerEntity){
+        Customer customer = new Customer();
+        customer.setCustomerId(customerEntity.getCustomerId());
+        customer.setFirstName(customerEntity.getFirstName());
+        customer.setLastName(customerEntity.getLastName());
+        customer.setBillingAddress("Pune");
+        return customer;
     }
 }

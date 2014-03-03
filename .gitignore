@@ -50,7 +50,9 @@ Thumbs.db
 /intTestHomeDir
 /modules/build
 /modules/interfaces/build
+/modules/domain/build
 /modules/models/build
+/modules/customer-dao/build
 /modules/rest-service/build
 /modules/billing-service/build
 /modules/customer-service/build

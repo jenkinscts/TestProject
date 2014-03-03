@@ -23,13 +23,14 @@ project.ext {
     springGroupId='org.springframework'
     jerseyGroupId='org.glassfish.jersey.containers'
     springVersion='4.0.0.RELEASE'
+    springDataMongoVersion='1.4.0.RELEASE'
     junitVersion='4.1'
     jerseyVersion='2.6'
     log4jVersion='1.2.17'
     servletVersion='2.5'
     mockitoVersion='1.5.4'
+    mongoJavaVersion='2.11.4'
 }
-
 
 
 
@@ -37,7 +38,12 @@ libraries = [
         'spring-beans':[group:springGroupId,name:'spring-beans',version:springVersion],
         'spring-context':[group:springGroupId,name:'spring-context',version:springVersion],
         'spring-web':[group:springGroupId,name:'spring-web',version:springVersion],
+        'spring-data':[group:'org.springframework.data',name:'spring-data-mongodb',version:springDataMongoVersion],
 
+        'sl4j-log4j':[group:'org.slf4j',name:'slf4j-log4j12',version: '1.7.6'],
+        'mongo-java-driver':[group:'org.mongodb',name:'mongo-java-driver',version: mongoJavaVersion],
+
+        'joda-time':[group:'joda-time',name:'joda-time',version:'2.3'],
         'jersey-core':[group: 'org.glassfish.jersey.containers', name:'jersey-container-servlet-core',version: jerseyVersion],
         'jersey-test':[group:'org.glassfish.jersey.test-framework.providers',name:'jersey-test-framework-provider-grizzly2',version:jerseyVersion],
         'jersey-container':[ group: 'org.glassfish.jersey.containers', name:'jersey-container-grizzly2-http',version: jerseyVersion],

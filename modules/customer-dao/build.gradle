@@ -1,9 +1,8 @@
 
 dependencies {
-    compile project(':modules:models')
+    compile project(':modules:interfaces')
     compile project(':modules:domain')
-
-    compile libraries.'mongo-java-driver'
+    compile libraries.'spring-data'
     testCompile libraries.'junit'
 }
 

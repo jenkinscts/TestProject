@@ -1,0 +1,7 @@
+
+dependencies {
+    compile libraries.'spring-data'
+    compile libraries.'joda-time'
+    testCompile libraries.'junit'
+}
+

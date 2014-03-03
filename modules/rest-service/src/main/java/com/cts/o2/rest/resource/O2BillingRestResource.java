@@ -5,10 +5,14 @@ import com.cts.o2.billing.BillingService;
 import com.cts.o2.customer.Customer;
 import com.cts.o2.customer.CustomerService;
 import org.apache.log4j.Logger;
+import org.glassfish.jersey.internal.inject.Custom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -24,6 +28,22 @@ public class O2BillingRestResource {
 
     private BillingService billingService;
     private CustomerService customerService;
+
+    @POST
+    @Path("addCustomer")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String addCustomer(Customer customer){
+        customerService.addCustomer(customer);
+        return  "Customer added successfully";
+    }
+
+    @PUT
+    @Path("updateCustomer")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String updateCustomer(Customer customer){
+        customerService.updateCustomer(customer);
+        return "Customer updated successfully";
+    }
 
     @GET
     @Path("getCustomerDetails")
