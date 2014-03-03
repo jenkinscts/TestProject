@@ -1,1 +1,1 @@
-include "modules:models","modules:interfaces","modules:customer-service","modules:billing-service","modules:rest-service","application:testWebApplication","itest"
+include "modules:models","modules:interfaces","modules:customer-service","modules:billing-service","modules:employee-service","modules:rest-service","application:testWebApplication","itest"

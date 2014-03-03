@@ -48,6 +48,16 @@ Thumbs.db
 /build
 /out
 /intTestHomeDir
+/modules/build
+/modules/interfaces/build
+/modules/models/build
+/modules/rest-service/build
+/modules/billing-service/build
+/modules/customer-service/build
+/modules/employee-service/build
+/application/build
+/application/testWebApplication/build
+/itest/build
 /subprojects/*/out
 /intellij
 /buildSrc/lib
