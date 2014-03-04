@@ -1,7 +1,9 @@
 package com.cts.o2.customer;
 
+import com.cts.o2.billing.BillingDetailsVO;
 import com.cts.o2.dao.CustomerRepository;
-import com.cts.o2.domain.base.CustomerEntity;
+import com.cts.o2.domain.BillingDetails;
+import com.cts.o2.domain.CustomerEntity;
 
 import java.util.*;
 
@@ -22,49 +24,101 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getCustomerDetails(int customerId) {
+    public CustomerVO getCustomerDetails(int customerId) {
        CustomerEntity customerEntity =  getCustomerRepository().getCustomer(customerId);
-        return getCustomerFromEntity(customerEntity);
+        return getCustomerVOFromEntity(customerEntity);
 
     }
 
 
     @Override
-    public List<Customer> getAllCustomer() {
+    public List<CustomerVO> getAllCustomer() {
         List<CustomerEntity> customerEntityList = getCustomerRepository().getAllCustomer();
-        List<Customer> customers = new ArrayList<Customer>();
+        List<CustomerVO> customerVOs = new ArrayList<CustomerVO>();
 
         for(CustomerEntity customerEntity: customerEntityList){
-            Customer customer = getCustomerFromEntity(customerEntity);
-            customers.add(customer);
+            CustomerVO customerVO = getCustomerVOFromEntity(customerEntity);
+            customerVOs.add(customerVO);
         }
-        return customers;
+        return customerVOs;
     }
 
     @Override
-    public void addCustomer(Customer customer) {
-        getCustomerRepository().saveCustomer(getCustomerEntityFromCustom(customer));
+    public void addCustomer(CustomerVO customerVO) {
+        getCustomerRepository().saveCustomer(getCustomerEntityFromCustomerVO(customerVO));
     }
 
     @Override
-    public void updateCustomer(Customer customer) {
-        getCustomerRepository().updateCustomer(customer.getCustomerId(),customer.getFirstName());
+    public void updateCustomer(CustomerVO customerVO) {
+        getCustomerRepository().updateCustomer(customerVO.getCustomerId(), customerVO.getFirstName());
     }
 
-    private CustomerEntity getCustomerEntityFromCustom(Customer customer){
+    @Override
+    public BillingDetailsVO getBillingDetails(int customerId) {
+       CustomerEntity customerEntity = getCustomerRepository().getCustomer(customerId);
+       return getBillingDetailsVOFromEntity(customerEntity);
+    }
+
+    @Override
+    public List<BillingDetailsVO> getAllBillingDetails() {
+        List<CustomerEntity> customerEntityList = getCustomerRepository().getAllCustomer();
+        List<BillingDetailsVO> billingDetailsVOList = new ArrayList<BillingDetailsVO>();
+
+        for(CustomerEntity customerEntity : customerEntityList){
+            BillingDetailsVO billingDetailsVO = getBillingDetailsVOFromEntity(customerEntity);
+            billingDetailsVOList.add(billingDetailsVO);
+        }
+        return  billingDetailsVOList;
+    }
+
+    @Override
+    public void addBillingDetails(BillingDetailsVO billingDetailsVO) {
+        getCustomerRepository().updateBillingDetails(billingDetailsVO.getCustomerId(),
+                getBillingDetailsFromVO(billingDetailsVO));
+    }
+
+    @Override
+    public void updateBillingDetails(BillingDetailsVO billingDetailsVO) {
+        getCustomerRepository().updateBillingDetails(billingDetailsVO.getCustomerId(),
+                getBillingDetailsFromVO(billingDetailsVO));
+    }
+
+    private CustomerEntity getCustomerEntityFromCustomerVO(CustomerVO customerVO){
         CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setCustomerId(customer.getCustomerId());
-        customerEntity.setFirstName(customer.getFirstName());
-        customerEntity.setLastName(customer.getLastName());
+        customerEntity.setCustomerId(customerVO.getCustomerId());
+        customerEntity.setFirstName(customerVO.getFirstName());
+        customerEntity.setLastName(customerVO.getLastName());
+        customerEntity.setAddress(customerVO.getBillingAddress());
         return customerEntity;
     }
 
-    private Customer getCustomerFromEntity(CustomerEntity customerEntity){
-        Customer customer = new Customer();
-        customer.setCustomerId(customerEntity.getCustomerId());
-        customer.setFirstName(customerEntity.getFirstName());
-        customer.setLastName(customerEntity.getLastName());
-        customer.setBillingAddress("Pune");
-        return customer;
+    private CustomerVO getCustomerVOFromEntity(CustomerEntity customerEntity){
+        CustomerVO customerVO = new CustomerVO();
+        customerVO.setCustomerId(customerEntity.getCustomerId());
+        customerVO.setFirstName(customerEntity.getFirstName());
+        customerVO.setLastName(customerEntity.getLastName());
+        customerVO.setBillingAddress(customerEntity.getAddress());
+        return customerVO;
     }
+
+
+    private BillingDetailsVO getBillingDetailsVOFromEntity(CustomerEntity customerEntity){
+        BillingDetailsVO billingDetailsVO = new BillingDetailsVO();
+        billingDetailsVO.setCustomerId(customerEntity.getCustomerId());
+        BillingDetails billingDetails = customerEntity.getBillingDetails();
+        billingDetailsVO.setBalance(billingDetails.getBalance());
+        billingDetailsVO.setCalls(billingDetails.getCalls());
+        billingDetailsVO.setSms(billingDetails.getSms());
+        return  billingDetailsVO;
+    }
+
+    private BillingDetails getBillingDetailsFromVO(BillingDetailsVO billingDetailsVO){
+        BillingDetails billingDetails = new BillingDetails();
+        billingDetails.setBalance(billingDetailsVO.getBalance());
+        billingDetails.setSms(billingDetailsVO.getSms());
+        billingDetails.setCalls(billingDetailsVO.getCalls());
+        return billingDetails;
+    }
+
+
 }

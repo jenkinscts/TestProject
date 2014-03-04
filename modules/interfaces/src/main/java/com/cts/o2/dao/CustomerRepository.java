@@ -2,13 +2,19 @@ package com.cts.o2.dao;
 
 import java.util.List;
 
-import com.cts.o2.domain.base.CustomerEntity;
+import com.cts.o2.domain.BillingDetails;
+import com.cts.o2.domain.CustomerEntity;
 import com.mongodb.WriteResult;
 
 /**
  * Created by cts1 on 3/3/14.
  */
 public interface CustomerRepository {
+
+
+    public void createCollection();
+
+    public void dropCollection();
 
     public List<CustomerEntity> getAllCustomer();
 
@@ -20,7 +26,12 @@ public interface CustomerRepository {
 
     public void deleteCustomer(int customerId);
 
-    public void createCollection();
+    public WriteResult updateBillingDetails(int customerId,BillingDetails billingDetails);
 
-    public void dropCollection();
+    public WriteResult updateCalls(int customerId,int calls);
+
+    public WriteResult updateSMS(int customerId,int sms);
+
+    public WriteResult updateBalance(int customerId,double balance);
+
 }

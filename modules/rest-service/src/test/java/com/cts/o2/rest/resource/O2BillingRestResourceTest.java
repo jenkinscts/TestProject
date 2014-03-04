@@ -1,12 +1,9 @@
 package com.cts.o2.rest.resource;
 
-import com.cts.o2.billing.BillingService;
-import com.cts.o2.billing.BillingServiceImpl;
-import com.cts.o2.customer.CustomerService;
-import com.cts.o2.customer.CustomerServiceImpl;
+
+
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
-import org.glassfish.jersey.test.TestProperties;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,10 +12,6 @@ import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mock;
 
 import org.springframework.web.context.ContextLoaderListener;
 import org.glassfish.jersey.server.spring.SpringLifecycleListener;

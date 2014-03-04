@@ -1,12 +1,9 @@
 package com.cts.o2.rest.resource;
 
-import com.cts.o2.billing.BillingDetails;
-import com.cts.o2.billing.BillingService;
-import com.cts.o2.customer.Customer;
+import com.cts.o2.billing.BillingDetailsVO;
 import com.cts.o2.customer.CustomerService;
+import com.cts.o2.customer.CustomerVO;
 import org.apache.log4j.Logger;
-import org.glassfish.jersey.internal.inject.Custom;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
@@ -26,62 +23,72 @@ public class O2BillingRestResource {
 
     private Logger logger = Logger.getLogger(O2BillingRestResource.class);
 
-    private BillingService billingService;
     private CustomerService customerService;
 
     @POST
     @Path("addCustomer")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addCustomer(Customer customer){
-        customerService.addCustomer(customer);
-        return  "Customer added successfully";
+    public String addCustomer(CustomerVO customerVO){
+        customerService.addCustomer(customerVO);
+        return  "CustomerVO added successfully";
     }
 
     @PUT
     @Path("updateCustomer")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String updateCustomer(Customer customer){
-        customerService.updateCustomer(customer);
-        return "Customer updated successfully";
+    public String updateCustomer(CustomerVO customerVO){
+        customerService.updateCustomer(customerVO);
+        return "CustomerVO updated successfully";
     }
 
     @GET
     @Path("getCustomerDetails")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Customer> getAllCustomerDetails() {
+    public List<CustomerVO> getAllCustomerDetails() {
         logger.info("CTS-dsfj: Fetching all customer details");
-        return  customerService.getAllCustomer();
+        List<CustomerVO> customerVOList = customerService.getAllCustomer();
+        logger.info("CTS-fds"+customerVOList.toString());
+        return customerVOList;
     }
 
     @GET
     @Path("getBillingDetails")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<BillingDetails> getAllBillingDetails() {
-        return billingService.getAllBillingDetails();
+    public List<BillingDetailsVO> getAllBillingDetails() {
+        return customerService.getAllBillingDetails();
     }
 
 
     @GET
     @Path("getCustomerDetails/id/{customerId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Customer getCustomerDetails(@PathParam("customerId")int customerId) {
+    public CustomerVO getCustomerDetails(@PathParam("customerId")int customerId) {
        return  customerService.getCustomerDetails(customerId);
     }
 
     @GET
     @Path("getBillingDetails/id/{customerId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public BillingDetails getBillingDetails(@PathParam("customerId")int customerId) {
-        return billingService.getBillingDetails(customerId);
+    public BillingDetailsVO getBillingDetails(@PathParam("customerId")int customerId) {
+        return customerService.getBillingDetails(customerId);
     }
 
-    public BillingService getBillingService() {
-        return billingService;
+    @POST
+    @Path("addBillingDetails")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String addBillingDetails(BillingDetailsVO billingDetailsVO){
+        customerService.addBillingDetails(billingDetailsVO);
+        return  "BillingDetails added successfully";
     }
 
-    public void setBillingService(BillingService billingService) {
-        this.billingService = billingService;
+    @PUT
+    @Path("updateBillingDetails")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String updateBillingDetails(BillingDetailsVO billingDetailsVO){
+        customerService.updateBillingDetails(billingDetailsVO);
+        return "BillingDetails updated successfully";
     }
+
 
     public CustomerService getCustomerService() {
         return customerService;

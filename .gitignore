@@ -52,10 +52,10 @@ Thumbs.db
 /modules/interfaces/build
 /modules/domain/build
 /modules/models/build
-/modules/customer-dao/build
+/modules/customerVO-dao/build
 /modules/rest-service/build
 /modules/billing-service/build
-/modules/customer-service/build
+/modules/customerVO-service/build
 /modules/employee-service/build
 /application/build
 /application/testWebApplication/build

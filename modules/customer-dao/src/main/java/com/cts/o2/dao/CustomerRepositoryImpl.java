@@ -1,14 +1,16 @@
 package com.cts.o2.dao;
 
-import com.cts.o2.domain.base.CustomerEntity;
+import com.cts.o2.domain.BillingDetails;
+import com.cts.o2.domain.CustomerEntity;
 import com.mongodb.WriteResult;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
-import java.sql.Timestamp;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,8 +41,13 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void saveCustomer(CustomerEntity customer) {
-        customer.setCreated_date(new Timestamp(System.currentTimeMillis()));
-        customer.setUpdated_date(new Timestamp(System.currentTimeMillis()));
+        BillingDetails billingDetails = new BillingDetails();
+        billingDetails.setCalls(100);
+        billingDetails.setSms(50);
+        billingDetails.setBalance(225.00);
+        customer.setBillingDetails(billingDetails);
+        customer.setCreated_date(new Date(System.currentTimeMillis()));
+        customer.setUpdated_date(new Date(System.currentTimeMillis()));
         mongoTemplate.insert(customer);
     }
 
@@ -55,8 +62,8 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         Query query = new Query(Criteria.where("customerId").is(customerId));
         Update update = new Update();
         update.set("firstName",name);
-        update.set("updated_date",new Timestamp(System.currentTimeMillis()));
-        return mongoTemplate.updateFirst(query,update,CustomerEntity.class);
+        update.set("updated_date",new Date(System.currentTimeMillis()));
+        return mongoTemplate.updateFirst(query, update, CustomerEntity.class);
 
     }
 
@@ -64,6 +71,58 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public void deleteCustomer(int customerId) {
         Query query = new Query(Criteria.where("customerId").is(customerId));
         mongoTemplate.remove(query,CustomerEntity.class);
+    }
+
+    @Override
+    public WriteResult updateBillingDetails(int customerId, BillingDetails billingDetails) {
+        Query query = new Query(Criteria.where("customerId").is(customerId));
+        Update update = new Update();
+        update.set("billingDetails",billingDetails);
+        update.set("updated_date",new Date(System.currentTimeMillis()));
+        return mongoTemplate.updateFirst(query, update, CustomerEntity.class);
+
+    }
+
+    @Override
+    public WriteResult updateCalls(int customerId, int calls) {
+        Query query = new Query(Criteria.where("customerId").is(customerId));
+        CustomerEntity customerEntity = mongoTemplate.findOne(query,CustomerEntity.class);
+        BillingDetails billingDetails = customerEntity.getBillingDetails();
+        billingDetails.setCalls(calls);
+
+        Update update = new Update();
+        update.set("billingDetails",billingDetails);
+        update.set("updated_date",new Date(System.currentTimeMillis()));
+
+        return mongoTemplate.updateFirst(query, update, CustomerEntity.class);
+    }
+
+    @Override
+    public WriteResult updateSMS(int customerId, int sms) {
+        Query query = new Query(Criteria.where("customerId").is(customerId));
+        CustomerEntity customerEntity = mongoTemplate.findOne(query,CustomerEntity.class);
+        BillingDetails billingDetails = customerEntity.getBillingDetails();
+        billingDetails.setSms(sms);
+
+        Update update = new Update();
+        update.set("billingDetails",billingDetails);
+        update.set("updated_date",new Date(System.currentTimeMillis()));
+
+        return mongoTemplate.updateFirst(query, update, CustomerEntity.class);
+    }
+
+    @Override
+    public WriteResult updateBalance(int customerId, double balance) {
+        Query query = new Query(Criteria.where("customerId").is(customerId));
+        CustomerEntity customerEntity = mongoTemplate.findOne(query,CustomerEntity.class);
+        BillingDetails billingDetails = customerEntity.getBillingDetails();
+        billingDetails.setBalance(balance);
+
+        Update update = new Update();
+        update.set("billingDetails",billingDetails);
+        update.set("updated_date",new Date(System.currentTimeMillis()));
+
+        return mongoTemplate.updateFirst(query, update, CustomerEntity.class);
     }
 
     @Override

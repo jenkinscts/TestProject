@@ -3,7 +3,6 @@
 dependencies {
     compile project(':modules:models')
     compile project(':modules:interfaces')
-    compile project(':modules:billing-service')
     compile project(':modules:customer-service')
     compile project(':modules:employee-service')
 

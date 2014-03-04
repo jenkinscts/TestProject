@@ -1,5 +1,10 @@
 package com.cts.o2.customer;
 
+
+
+
+import com.cts.o2.billing.BillingDetailsVO;
+
 import java.util.List;
 
 /**
@@ -7,11 +12,19 @@ import java.util.List;
  */
 public interface CustomerService {
 
-    public Customer getCustomerDetails(int customerId);
+    public CustomerVO getCustomerDetails(int customerId);
 
-    public List<Customer> getAllCustomer();
+    public List<CustomerVO> getAllCustomer();
 
-    public void addCustomer(Customer customer);
+    public void addCustomer(CustomerVO customerVO);
 
-    public void updateCustomer(Customer customer);
+    public void updateCustomer(CustomerVO customerVO);
+
+    public BillingDetailsVO getBillingDetails(int customerId);
+
+    public List<BillingDetailsVO> getAllBillingDetails();
+
+    public void addBillingDetails(BillingDetailsVO billingDetailsVO);
+
+    public void updateBillingDetails(BillingDetailsVO billingDetailsVO);
 }
