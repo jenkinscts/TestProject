@@ -1,5 +1,6 @@
-function AddCustomerController($scope,$http) {
-  console.log('Called the AllCustomerDetailsController');
+O2App.controller('AddCustomerController',
+function($scope,$http) {
+  console.log('Called the AddCustomerController');
   $scope.message = "Added successfully";
   $scope.submitForm = function() {
   			// check to make sure the form is completely valid
@@ -26,4 +27,5 @@ function AddCustomerController($scope,$http) {
   	}
   }
 }
+);
 
