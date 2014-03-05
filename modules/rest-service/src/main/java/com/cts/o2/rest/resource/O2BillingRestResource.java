@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -65,6 +66,15 @@ public class O2BillingRestResource {
     public CustomerVO getCustomerDetails(@PathParam("customerId")int customerId) {
        return  customerService.getCustomerDetails(customerId);
     }
+
+    @DELETE
+    @Path("deleteCustomer/{customerId}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteCustomer(@PathParam("customerId")int customerId) {
+        customerService.deleteCustomer(customerId);
+        return  "Customer has been deleted";
+    }
+
 
     @GET
     @Path("getBillingDetails/id/{customerId}")

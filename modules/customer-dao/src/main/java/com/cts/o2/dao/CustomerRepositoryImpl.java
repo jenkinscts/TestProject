@@ -58,10 +58,12 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public WriteResult updateCustomer(int customerId, String name) {
+    public WriteResult updateCustomer(int customerId, CustomerEntity customerEntity) {
         Query query = new Query(Criteria.where("customerId").is(customerId));
         Update update = new Update();
-        update.set("firstName",name);
+        update.set("firstName",customerEntity.getFirstName());
+        update.set("lastName",customerEntity.getLastName());
+        update.set("address",customerEntity.getAddress());
         update.set("updated_date",new Date(System.currentTimeMillis()));
         return mongoTemplate.updateFirst(query, update, CustomerEntity.class);
 

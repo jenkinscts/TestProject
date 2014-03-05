@@ -50,7 +50,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void updateCustomer(CustomerVO customerVO) {
-        getCustomerRepository().updateCustomer(customerVO.getCustomerId(), customerVO.getFirstName());
+        getCustomerRepository().updateCustomer(customerVO.getCustomerId(), getCustomerEntityFromCustomerVO(customerVO));
+    }
+
+    @Override
+    public void deleteCustomer(int customerId) {
+        getCustomerRepository().deleteCustomer(customerId);
     }
 
     @Override

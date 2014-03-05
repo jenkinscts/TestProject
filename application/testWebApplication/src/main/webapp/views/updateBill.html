@@ -1,0 +1,35 @@
+<div>
+    <h1>Update Billing Details</h1>
+    <form name="billUpdateForm" ng-submit="submitUpdateForm()" novalidate>
+
+        <!-- CustomerID -->
+        <div ng-class="{ 'has-error' : billUpdateForm.customerId.$invalid && !billUpdateForm.customerId.$pristine }">
+            <label>CustomerId:</label>
+            <input type="text" name="customerId" class="form-control" ng-model="selectedBill.customerId" ng-disabled="true">
+        </div>
+
+        <!-- SMS -->
+        <div ng-class="{ 'has-error' : billUpdateForm.sms.$invalid && !billUpdateForm.sms.$pristine }">
+            <label>SMS:</label>
+            <input type="text" name="sms" class="form-control" ng-model="selectedBill.sms"  required>
+            <p ng-show="billUpdateForm.sms.$invalid && !billUpdateForm.sms.$pristine" class="help-block">SMS should not be blank</p>
+        </div>
+
+        <!-- CALLS -->
+        <div ng-class="{ 'has-error' : billUpdateForm.calls.$invalid && !billUpdateForm.calls.$pristine }">
+            <label>CALLS:</label>
+            <input type="text" name="calls" class="form-control" ng-model="selectedBill.calls" required="true">
+            <p ng-show="billUpdateForm.lastName.$invalid && !billUpdateForm.lastName.$pristine" class="help-block">Calls should not be blank</p>
+        </div>
+
+        <!-- BALANCE -->
+        <div ng-class="{ 'has-error' : billUpdateForm.balance.$invalid && !billUpdateForm.balance.$pristine }">
+            <label>BALANCE:</label>
+            <input type="text" name="balance" class="form-control" ng-model="selectedBill.balance">
+            <p ng-show="billUpdateForm.balance.$invalid && !billUpdateForm.balance.$pristine" class="help-block">Balance should not be blank</p>
+        </div>
+        <button type="cancel" class="btn-primary" ng-click="cancelUpdateForm()" value="Cancel">Cancel</button>
+        <button type="submit" class="btn-primary" ng-disabled="billUpdateForm.$invalid">Submit</button>
+
+    </form>
+</div>

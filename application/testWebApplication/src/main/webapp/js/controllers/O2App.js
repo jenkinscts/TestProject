@@ -13,6 +13,22 @@ var o2AppConfig = function($routeProvider) {
       controller: 'AllBillingDetailsController',
       templateUrl: 'views/billingDetails.html'
     })
+    .when('/updateCustomer/:customer',{
+      controller: 'UpdateCustomerController',
+      templateUrl: 'views/updateCustomer.html'
+    })
+   .when('/deleteCustomer/:customerId',{
+        controller: 'DeleteCustomerController',
+         templateUrl: 'views/customerDetails.html'
+      })
+   .when('/updateBilling/:bill',{
+        controller: 'UpdateBillController',
+        templateUrl: 'views/updateBill.html'
+      })
+   .when('/deleteBilling/:customerId',{
+        controller: 'DeleteBillController',
+        templateUrl: 'views/billingDetails.html'
+      })
   ;
 };
 

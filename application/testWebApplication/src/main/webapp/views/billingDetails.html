@@ -7,12 +7,16 @@
                 <th>SMS</th>
                 <th>Balance</th>
                 <th>Calls</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
             <tr ng-repeat="bill in bills">
                 <td>{{bill.customerId}}</td>
                 <td>{{bill.sms}}</td>
                 <td>{{bill.balance}}</td>
                 <td>{{bill.calls}}</td>
+                <td><a href='#/updateBilling/{{bill}}'>edit</a></td>
+                <td><a href='#/deleteBilling/{{bill.customerId}}'>delete</a></td>
             </tr>
         </table>
     </div>

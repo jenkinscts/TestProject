@@ -22,7 +22,7 @@ public interface CustomerRepository {
 
     public CustomerEntity getCustomer(int customerId);
 
-    public WriteResult updateCustomer(int customerId, String firstName);
+    public WriteResult updateCustomer(int customerId,CustomerEntity customerEntity);
 
     public void deleteCustomer(int customerId);
 

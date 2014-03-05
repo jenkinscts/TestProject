@@ -20,6 +20,8 @@ public interface CustomerService {
 
     public void updateCustomer(CustomerVO customerVO);
 
+    public void deleteCustomer(int customerId);
+
     public BillingDetailsVO getBillingDetails(int customerId);
 
     public List<BillingDetailsVO> getAllBillingDetails();
